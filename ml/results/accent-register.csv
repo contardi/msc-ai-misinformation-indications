@@ -1,0 +1,5 @@
+query_register,matcher,positives_rate,controls_rate,positives_n,controls_n,index_rows
+as-written,accent-sensitive,0.29,0.03,200,200,24220
+as-written,folded,0.29,0.035,200,200,24219
+accents-dropped,accent-sensitive,0.235,0.01,200,200,24220
+accents-dropped,folded,0.29,0.035,200,200,24219

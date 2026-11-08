@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/playwright:v1.62.1-noble
+
+WORKDIR /audit
+
+RUN npm init -y >/dev/null 2>&1 \
+    && npm install --no-audit --no-fund \
+        @axe-core/playwright@4.13.0 \
+        playwright@1.62.1
+
+CMD ["node", "/audit/scripts/a11y_audit.mjs"]

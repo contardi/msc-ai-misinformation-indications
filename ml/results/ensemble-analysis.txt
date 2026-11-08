@@ -1,0 +1,121 @@
+
+==============================================================================
+1. Do the models actually disagree? (Spearman rank correlation)
+==============================================================================
+                  tfidf/bertug  tfidf/bertim  bertug/bertim
+corpus                                                     
+fakerecogna1            0.5229        0.5284         0.6704
+fakerecogna2            0.5773        0.4173         0.6713
+fakerecogna2_abs        0.5600        0.4050         0.6503
+
+  Correlation near 1.0 would mean the models rank documents the same way, so combining
+  them could only average out noise. Values well below 1.0 mean they are keying on
+  genuinely different signal, which is the precondition for an ensemble to help.
+
+==============================================================================
+2. Combination methods (reference distribution taken from the SAME corpus)
+==============================================================================
+
+--- fakerecogna1 (n=5000) ---
+                             ROC-AUC  PR-AUC  best F1  vs trivial    ECE  fakes reassured  reals flagged
+method                                                                                                  
+TF-IDF alone                  0.8012  0.7858   0.7551      0.0885 0.0916           0.0924         0.1176
+BERTugues alone (raw)         0.8174  0.7845   0.7699      0.1032 0.4574           0.9100         0.0176
+rank-average [offline only]   0.8567  0.8472   0.7850      0.1183 0.0645           0.1216         0.1152
+probability-average           0.7999  0.7803   0.7543      0.0876 0.2234           0.8500         0.0136
+percentile-map [deployable]   0.8567  0.8472   0.7848      0.1181 0.0645           0.1216         0.1152
++ BERTimbau (3-way rank)      0.8465  0.8375   0.7762      0.1096 0.0523           0.1300         0.1156
+
+--- fakerecogna2 (n=5000) ---
+                             ROC-AUC  PR-AUC  best F1  vs trivial    ECE  fakes reassured  reals flagged
+method                                                                                                  
+TF-IDF alone                  0.8023  0.7836   0.7522      0.0856 0.0562           0.1280         0.1264
+BERTugues alone (raw)         0.7830  0.7852   0.7366      0.0699 0.2535           0.4100         0.1672
+rank-average [offline only]   0.8300  0.8253   0.7675      0.1008 0.0358           0.1388         0.1532
+probability-average           0.8182  0.8073   0.7657      0.0990 0.0806           0.3568         0.1448
+percentile-map [deployable]   0.8300  0.8253   0.7675      0.1008 0.0358           0.1388         0.1528
++ BERTimbau (3-way rank)      0.7875  0.7804   0.7371      0.0704 0.0146           0.1720         0.1712
+
+--- fakerecogna2_abs (n=5000) ---
+                             ROC-AUC  PR-AUC  best F1  vs trivial    ECE  fakes reassured  reals flagged
+method                                                                                                  
+TF-IDF alone                  0.7950  0.7854   0.7464      0.0798 0.0605           0.1140         0.1400
+BERTugues alone (raw)         0.7948  0.8002   0.7377      0.0710 0.2491           0.4200         0.1400
+rank-average [offline only]   0.8349  0.8358   0.7666      0.1000 0.0406           0.1420         0.1372
+probability-average           0.8254  0.8250   0.7647      0.0980 0.0820           0.3688         0.1224
+percentile-map [deployable]   0.8349  0.8358   0.7666      0.1000 0.0403           0.1424         0.1372
++ BERTimbau (3-way rank)      0.7887  0.7967   0.7278      0.0611 0.0204           0.1800         0.1576
+
+  rank-average needs the whole test set in hand to compute ranks, so it cannot serve a
+  single request - it is an offline upper bound. percentile-map approximates it against a
+  fixed reference and IS deployable; analysis 3 tests whether it survives transfer.
+  probability-average mixes two incommensurable scales (a calibrated probability and a
+  raw logit-ish score), which is why it is reported but not recommended.
+
+  These figures are OPTIMISTIC: the reference distribution is the test corpus itself.
+
+==============================================================================
+3. Leave-one-corpus-out (the honest case: reference fitted on the OTHER corpora)
+==============================================================================
+
+--- held out: fakerecogna1 (n=5000; reference from fakerecogna2, fakerecogna2_abs) ---
+                         ROC-AUC  PR-AUC  best F1  vs trivial    ECE  fakes reassured  reals flagged
+method                                                                                              
+TF-IDF alone              0.8012  0.7858   0.7551      0.0885 0.0916           0.0924         0.1176
+BERTugues alone (raw)     0.8174  0.7845   0.7699      0.1032 0.4574           0.9100         0.0176
+percentile-map ensemble   0.8275  0.8204   0.7668      0.1001 0.1785           0.4764         0.0148
+
+--- held out: fakerecogna2 (n=5000; reference from fakerecogna1, fakerecogna2_abs) ---
+                         ROC-AUC  PR-AUC  best F1  vs trivial    ECE  fakes reassured  reals flagged
+method                                                                                              
+TF-IDF alone              0.8023  0.7836   0.7522      0.0856 0.0562           0.1280         0.1264
+BERTugues alone (raw)     0.7830  0.7852   0.7366      0.0699 0.2535           0.4100         0.1672
+percentile-map ensemble   0.8273  0.8196   0.7689      0.1023 0.0880           0.0648         0.2480
+
+--- held out: fakerecogna2_abs (n=5000; reference from fakerecogna1, fakerecogna2) ---
+                         ROC-AUC  PR-AUC  best F1  vs trivial    ECE  fakes reassured  reals flagged
+method                                                                                              
+TF-IDF alone              0.7950  0.7854   0.7464      0.0798 0.0605           0.1140         0.1400
+BERTugues alone (raw)     0.7948  0.8002   0.7377      0.0710 0.2491           0.4200         0.1400
+percentile-map ensemble   0.8314  0.8302   0.7670      0.1003 0.0914           0.0592         0.2464
+
+  The reference distributions never saw the held-out corpus, so any gain here is a
+  transfer result rather than an in-sample fit. Read the ECE column beside the ROC-AUC:
+  a ranking gain bought with a calibration loss is not free, and the platform displays a
+  probability, not a rank.
+
+==============================================================================
+4. Weight sweep: what each point of ranking gain costs in calibration
+==============================================================================
+
+             ROC-AUC    ECE  best F1  fakes reassured  reals flagged
+w_bertugues                                                         
+0.00          0.7995 0.0694   0.7513           0.1115         0.1280
+0.05          0.8056 0.0796   0.7537           0.1069         0.1220
+0.10          0.8113 0.0855   0.7575           0.1040         0.1160
+0.15          0.8164 0.0936   0.7609           0.1072         0.1159
+0.20          0.8207 0.1005   0.7634           0.1120         0.1179
+0.25          0.8243 0.1068   0.7650           0.1208         0.1217
+0.30          0.8270 0.1140   0.7659           0.1337         0.1283
+0.40          0.8302 0.1245   0.7671           0.1796         0.1495
+0.50          0.8305 0.1445   0.7677           0.2236         0.1711
+
+  wrote /app/results/ensemble_pareto.csv
+
+  w=0.0 is the currently served model: ROC-AUC 0.7995, ECE 0.0694, harms 11.1% / 12.8%
+  w=0.50 maximises ranking: ROC-AUC 0.8305 (+0.0310), ECE 0.1445 (+0.0750)
+
+  Weights that improve ranking AND leave BOTH user-facing harms no worse than w=0:
+    w=0.05  ROC-AUC 0.8056 (+0.0061)  ECE 0.0796 (+0.0102)  harms 10.7% / 12.2%
+    w=0.10  ROC-AUC 0.8113 (+0.0118)  ECE 0.0855 (+0.0160)  harms 10.4% / 11.6%
+    w=0.15  ROC-AUC 0.8164 (+0.0169)  ECE 0.0936 (+0.0242)  harms 10.7% / 11.6%
+
+  CAUTION: this is chosen over only three corpora, so treat the specific weight as
+  indicative rather than tuned. Reporting the whole curve is the defensible move;
+  quoting a single optimum selected on the same data that measured it is not.
+
+  ECE rising monotonically with w means there is no free lunch on the honesty of the
+  number, so the choice of w is an explicit trade rather than an optimisation. That is
+  the same shape as the SVM (best F1, no predict_proba) and BERTugues (equal ranking,
+  non-transferring probabilities): the best model by the headline metric is not the
+  model that can ship.

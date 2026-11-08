@@ -1,0 +1,145 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      args:
+        INSTALL_TRANSFORMER: ${INSTALL_TRANSFORMER:-1}
+        INSTALL_MEDIA: ${INSTALL_MEDIA:-1}
+    ports:
+      - "8000:8000"
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      MODEL_PATH: /app/artifacts/baseline_tfidf_logreg.joblib
+      GOOGLE_FACTCHECK_API_KEY: ${GOOGLE_FACTCHECK_API_KEY:-}
+      CLAIMREVIEW_INDEX: /app/data/processed/claimreview_br.csv
+      DATABASE_URL: postgresql://checker:checker@postgres:5432/factchecks
+      HF_HOME: /app/.hfcache
+      MODEL_KIND: ${MODEL_KIND:-baseline}
+    volumes:
+      - ./backend/app:/app/app
+      - ./ml/artifacts:/app/artifacts:ro
+      - ./data/processed:/app/data/processed:ro
+      - ./.hfcache:/app/.hfcache
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      VITE_PROXY_TARGET: http://backend:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  trainer:
+    build:
+      context: ./ml
+      dockerfile: Dockerfile.baseline
+    profiles: ["tools"]
+    environment:
+      DATA_DIR: /app/data
+      ARTIFACTS_DIR: /app/artifacts
+      RESULTS_DIR: /app/results
+      CONFIG_PATH: /app/configs/default.yaml
+      MARITACA_API_KEY: ${MARITACA_API_KEY:-}
+      GOOGLE_FACTCHECK_API_KEY: ${GOOGLE_FACTCHECK_API_KEY:-}
+    volumes:
+      - ./data:/app/data
+      - ./ml/artifacts:/app/artifacts
+      - ./ml/results:/app/results
+      - ./ml/src:/app/src
+    command: >
+      sh -c "python src/data/prepare_fakebr.py && python src/training/train_baseline.py"
+
+  analysis:
+    build:
+      context: ./backend
+      args:
+        INSTALL_TRANSFORMER: ${INSTALL_TRANSFORMER:-1}
+        INSTALL_MEDIA: ${INSTALL_MEDIA:-1}
+    profiles: ["tools"]
+    environment:
+      RESULTS_DIR: /app/results
+      DATA_DIR: /app/data
+      ARTIFACTS_DIR: /app/artifacts
+      MODEL_PATH: /app/artifacts/baseline_tfidf_logreg.joblib
+      CLAIMREVIEW_INDEX: /app/data/processed/claimreview_br.csv
+      GOOGLE_FACTCHECK_API_KEY: ${GOOGLE_FACTCHECK_API_KEY:-}
+      MARITACA_API_KEY: ${MARITACA_API_KEY:-}
+      DATABASE_URL: ${ANALYSIS_DATABASE_URL:-postgresql://checker:checker@postgres:5432/factchecks}
+    volumes:
+      - ./backend/app:/app/app
+      - ./ml/src:/app/ml_src
+      - ./data:/app/data
+      - ./ml/results:/app/results
+      - ./ml/artifacts:/app/artifacts:ro
+
+  ml-tests:
+    build:
+      context: ./backend
+      args:
+        INSTALL_TRANSFORMER: ${INSTALL_TRANSFORMER:-1}
+        INSTALL_MEDIA: ${INSTALL_MEDIA:-1}
+    profiles: ["tools"]
+    volumes:
+      - ./ml/src:/mlsrc:ro
+      - ./ml/tests:/mltests:ro
+      - ./backend/app:/app/app:ro
+      - ./ml/results:/mlresults:ro
+    command: python -m pytest /mltests -q -p no:cacheprovider
+
+  a11y:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.a11y
+    profiles: ["tools"]
+    environment:
+      AUDIT_URL: http://frontend:5173
+      AUDIT_OUT: /audit/out/a11y-results.json
+    volumes:
+      - ./scripts:/audit/scripts:ro
+      - ./ml/results/a11y:/audit/out
+
+  trainer-transformer:
+    build:
+      context: ./ml
+      dockerfile: Dockerfile.transformer
+    profiles: ["tools"]
+    environment:
+      DATA_DIR: /app/data
+      ARTIFACTS_DIR: /app/artifacts
+      RESULTS_DIR: /app/results
+      CONFIG_PATH: /app/configs/default.yaml
+      HUGGINGFACE_API_KEY: ${HUGGINGFACE_API_KEY:-}
+    volumes:
+      - ./data:/app/data
+      - ./ml/artifacts:/app/artifacts
+      - ./ml/results:/app/results
+    command: >
+      sh -c "python src/training/train_transformer.py --smoke"
+
+  postgres:
+    image: ghcr.io/railwayapp-templates/postgres-ssl:18.6
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-checker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-checker}
+      POSTGRES_DB: ${POSTGRES_DB:-factchecks}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/postgres/schema.sql:/docker-entrypoint-initdb.d/10-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-checker} -d ${POSTGRES_DB:-factchecks}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

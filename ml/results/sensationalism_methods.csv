@@ -1,0 +1,7 @@
+arm,roc_auc,n,n_sensational,vs_length,precision,recall
+morphology,0.5342,300,129,-0.1439,,
+structural,0.6856,300,129,0.0075,,
+combined,0.6799,300,129,0.0019,,
+length (control),0.6781,300,129,,,
+served classifier,0.7619,300,129,0.0838,,
+shipped cues,,300,129,,0.7059,0.093

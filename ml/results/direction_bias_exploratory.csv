@@ -1,0 +1,3 @@
+cut,cut_meaning,partisan_n,partisan_flagged,partisan_rate,non_partisan_n,non_partisan_flagged,non_partisan_rate,difference,fisher_p,min_detectable_difference,partisan_median_words,non_partisan_median_words,prespecified
+0.5,decision threshold,278,96,0.3453,122,23,0.1885,0.1568,0.001914,0.136,112,113,False
+0.6,interface band,278,57,0.205,122,12,0.0984,0.1067,0.009456,0.116,112,113,False

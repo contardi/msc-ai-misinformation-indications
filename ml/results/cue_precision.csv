@@ -1,0 +1,41 @@
+corpus,kind,term,n_fired,fake_rate,real_rate,lift,precision,wilson_lower
+fakebr,any_cue,,910,20.83,4.44,1.648,82.42,79.81
+fakebr,exclamations,,549,14.61,0.64,1.916,95.81,93.79
+fakebr,sensational_terms,,398,7.17,3.89,1.296,64.82,60.01
+fakebr,sensational_terms,atenção,191,2.94,2.36,1.11,55.5,48.41
+fakebr,sensational_terms,bomba,122,2.28,1.11,1.344,67.21,58.47
+fakebr,sensational_terms,urgente,78,1.92,0.25,1.769,88.46,79.5
+fakebr,sensational_terms,chocante,6,0.06,0.11,0.667,33.33,9.68
+fakebr,sensational_terms,compartilhe,4,0.08,0.03,1.5,75.0,30.06
+fakebr,sensational_terms,compartilha,3,0.0,0.08,0.0,0.0,0.0
+fakebr,sensational_terms,imperdível,2,0.03,0.03,1.0,50.0,9.45
+fakebr,sensational_terms,compartilhem,1,0.03,0.0,2.0,100.0,20.65
+fakerecogna2,any_cue,,4358,14.12,2.39,1.71,85.52,84.44
+fakerecogna2,exclamations,,2846,10.45,0.33,1.939,96.94,96.24
+fakerecogna2,sensational_terms,,2245,6.44,2.07,1.514,75.68,73.86
+fakerecogna2,sensational_terms,atenção,955,2.19,1.42,1.213,60.63,57.49
+fakerecogna2,sensational_terms,urgente,518,1.61,0.35,1.641,82.05,78.51
+fakerecogna2,sensational_terms,compartilhe,354,1.3,0.05,1.932,96.61,94.17
+fakerecogna2,sensational_terms,bomba,223,0.67,0.18,1.578,78.92,73.1
+fakerecogna2,sensational_terms,repassem,150,0.56,0.01,1.973,98.67,95.27
+fakerecogna2,sensational_terms,compartilhem,138,0.5,0.02,1.928,96.38,91.8
+fakerecogna2,sensational_terms,compartilha,106,0.37,0.03,1.83,91.51,84.65
+fakerecogna2,sensational_terms,chocante,45,0.14,0.03,1.6,80.0,66.18
+fakerecogna2,sensational_terms,urgentíssimo,9,0.03,0.0,2.0,100.0,70.08
+fakerecogna2,sensational_terms,imperdível,4,0.02,0.0,2.0,100.0,51.01
+fakerecogna2 [politica],any_cue,,1251,29.54,1.71,2.591,90.25,88.48
+fakerecogna2 [politica],exclamations,,898,22.58,0.49,2.759,96.1,94.63
+fakerecogna2 [politica],sensational_terms,,592,13.21,1.22,2.449,85.3,82.22
+fakerecogna2 [politica],sensational_terms,atenção,205,3.87,0.8,2.073,72.2,65.7
+fakerecogna2 [politica],sensational_terms,urgente,204,4.79,0.29,2.575,89.71,84.78
+fakerecogna2 [politica],sensational_terms,bomba,80,2.01,0.04,2.763,96.25,89.55
+fakerecogna2 [politica],sensational_terms,compartilhe,62,1.62,0.0,2.871,100.0,94.17
+fakerecogna2 [politica],sensational_terms,repassem,55,1.41,0.01,2.819,98.18,90.39
+fakerecogna2 [politica],sensational_terms,compartilhem,52,1.31,0.03,2.76,96.15,87.02
+fakerecogna2 [politica],sensational_terms,compartilha,23,0.55,0.03,2.621,91.3,73.2
+fakerecogna2 [politica],sensational_terms,chocante,5,0.1,0.01,2.297,80.0,37.55
+fakerecogna2 [politica],sensational_terms,urgentíssimo,2,0.05,0.0,2.871,100.0,34.24
+short text (2025-26 claims vs headlines),sensational_terms,,2,1.06,0.0,2.0,100.0,34.24
+short text (2025-26 claims vs headlines),any_cue,,2,1.06,0.0,2.0,100.0,34.24
+short text (2025-26 claims vs headlines),sensational_terms,compartilha,1,0.53,0.0,2.0,100.0,20.65
+short text (2025-26 claims vs headlines),sensational_terms,urgente,1,0.53,0.0,2.0,100.0,20.65

@@ -1,0 +1,131 @@
+corpus,arm,n,roc_auc,seed_min,seed_max,beats_length,note
+fakebr,length,7200,0.5055,0.5023,0.5107,,"len(text.split()), shorter=fake"
+fakebr,bertugues,5000,0.9999,,,above,
+fakebr,tfidf-recogna2,7200,0.7912,,,above,
+fakebr,tfidf-recognaall,7200,0.7904,,,above,
+fakebr,tfidf-recogna2 (rho vs words),,-0.3994,,,,"spearman(prob, words)"
+fakebr,tfidf-recognaall (rho vs words),,-0.3739,,,,"spearman(prob, words)"
+fakebr,bertugues (rho vs words),,-0.0004,,,,"spearman(prob, words)"
+fakebr,bertugues [all words],5000,0.9999,,,0.4943,within-band; length control held
+fakebr,bertugues [20-200 words],3375,1.0,,,0.4927,within-band; length control held
+fakebr,bertugues [30-150 words],2212,1.0,,,0.496,within-band; length control held
+fakebr,bertugues [40-120 words],1269,1.0,,,0.4947,within-band; length control held
+fakebr,bertugues [45-90 words],475,1.0,,,0.502,within-band; length control held
+fakebr,tfidf-recogna2 [all words],7200,0.7912,,,0.2857,within-band; length control held
+fakebr,tfidf-recogna2 [20-200 words],4881,0.8201,,,0.3133,within-band; length control held
+fakebr,tfidf-recogna2 [30-150 words],3208,0.8313,,,0.3253,within-band; length control held
+fakebr,tfidf-recogna2 [40-120 words],1882,0.8459,,,0.3417,within-band; length control held
+fakebr,tfidf-recogna2 [45-90 words],696,0.8791,,,0.3835,within-band; length control held
+fakebr,tfidf-recognaall [all words],7200,0.7904,,,0.2849,within-band; length control held
+fakebr,tfidf-recognaall [20-200 words],4881,0.8162,,,0.3094,within-band; length control held
+fakebr,tfidf-recognaall [30-150 words],3208,0.8278,,,0.3218,within-band; length control held
+fakebr,tfidf-recognaall [40-120 words],1882,0.8412,,,0.3371,within-band; length control held
+fakebr,tfidf-recognaall [45-90 words],696,0.8776,,,0.382,within-band; length control held
+fakebr,length [all words],7200,0.5055,,,,tail-effect check
+fakebr,length [20-200 words],4881,0.5068,,,,tail-effect check
+fakebr,length [30-150 words],3208,0.506,,,,tail-effect check
+fakebr,length [40-120 words],1882,0.5041,,,,tail-effect check
+fakebr,length [45-90 words],696,0.4956,,,,tail-effect check
+fakebr,length distribution [real],3600,,116.0,224.0,,median=158 iqr=108
+fakebr,length distribution [fake],3600,,115.0,222.0,,median=157 iqr=107
+fakerecogna1,length,11902,0.7308,0.7255,0.7347,,"len(text.split()), shorter=fake"
+fakerecogna1,tfidf,5000,0.8012,,,above,
+fakerecogna1,bertugues,5000,0.7703,,,above,
+fakerecogna1,bertimbau,5000,0.7488,,,above,
+fakerecogna1,bertugues (rho vs words),,-0.272,,,,"spearman(prob, words)"
+fakerecogna1,tfidf (rho vs words),,-0.2159,,,,"spearman(prob, words)"
+fakerecogna1,bertimbau (rho vs words),,-0.1841,,,,"spearman(prob, words)"
+fakerecogna1,bertimbau [all words],5000,0.7488,,,0.0127,within-band; length control held
+fakerecogna1,bertimbau [20-200 words],4603,0.7462,,,0.0212,within-band; length control held
+fakerecogna1,bertimbau [30-150 words],4080,0.7504,,,0.0559,within-band; length control held
+fakerecogna1,bertimbau [40-120 words],3405,0.7529,,,0.0965,within-band; length control held
+fakerecogna1,bertimbau [45-90 words],2264,0.7451,,,0.1338,within-band; length control held
+fakerecogna1,bertugues [all words],5000,0.7703,,,0.0341,within-band; length control held
+fakerecogna1,bertugues [20-200 words],4603,0.7636,,,0.0385,within-band; length control held
+fakerecogna1,bertugues [30-150 words],4080,0.7559,,,0.0615,within-band; length control held
+fakerecogna1,bertugues [40-120 words],3405,0.7554,,,0.0991,within-band; length control held
+fakerecogna1,bertugues [45-90 words],2264,0.7562,,,0.145,within-band; length control held
+fakerecogna1,tfidf [all words],5000,0.8012,,,0.065,within-band; length control held
+fakerecogna1,tfidf [20-200 words],4603,0.7951,,,0.07,within-band; length control held
+fakerecogna1,tfidf [30-150 words],4080,0.7872,,,0.0928,within-band; length control held
+fakerecogna1,tfidf [40-120 words],3405,0.7762,,,0.1198,within-band; length control held
+fakerecogna1,tfidf [45-90 words],2264,0.7681,,,0.1568,within-band; length control held
+fakerecogna1,length [all words],11902,0.7308,,,,tail-effect check
+fakerecogna1,length [20-200 words],11037,0.7246,,,,tail-effect check
+fakerecogna1,length [30-150 words],9766,0.6964,,,,tail-effect check
+fakerecogna1,length [40-120 words],8139,0.6527,,,,tail-effect check
+fakerecogna1,length [45-90 words],5451,0.6132,,,,tail-effect check
+fakerecogna1,length distribution [real],5951,,70.0,113.0,,median=89 iqr=43
+fakerecogna1,length distribution [fake],5951,,35.0,85.0,,median=61 iqr=50
+fakerecogna2,length,52800,0.809,0.798,0.8179,,"len(text.split()), shorter=fake"
+fakerecogna2,llm,5000,0.8098,,,within noise,
+fakerecogna2,tfidf,5000,0.8023,,,within noise,
+fakerecogna2,bertugues,5000,0.7647,,,BELOW,
+fakerecogna2,bertimbau,5000,0.5492,,,BELOW,
+fakerecogna2,llm (rho vs words),,-0.2959,,,,"spearman(prob, words)"
+fakerecogna2,tfidf (rho vs words),,-0.2806,,,,"spearman(prob, words)"
+fakerecogna2,bertugues (rho vs words),,-0.2051,,,,"spearman(prob, words)"
+fakerecogna2,bertimbau (rho vs words),,0.0875,,,,"spearman(prob, words)"
+fakerecogna2,bertimbau [all words],5000,0.5492,,,-0.2585,within-band; length control held
+fakerecogna2,bertimbau [20-200 words],4362,0.5993,,,-0.2057,within-band; length control held
+fakerecogna2,bertimbau [30-150 words],3919,0.6107,,,-0.2159,within-band; length control held
+fakerecogna2,bertimbau [40-120 words],2851,0.6192,,,-0.2136,within-band; length control held
+fakerecogna2,bertimbau [45-90 words],1140,0.6441,,,-0.0746,within-band; length control held
+fakerecogna2,bertugues [all words],5000,0.7647,,,-0.0429,within-band; length control held
+fakerecogna2,bertugues [20-200 words],4362,0.7942,,,-0.0109,within-band; length control held
+fakerecogna2,bertugues [30-150 words],3919,0.7948,,,-0.0318,within-band; length control held
+fakerecogna2,bertugues [40-120 words],2851,0.7872,,,-0.0456,within-band; length control held
+fakerecogna2,bertugues [45-90 words],1140,0.7657,,,0.047,within-band; length control held
+fakerecogna2,llm [all words],5000,0.8098,,,0.0021,within-band; length control held
+fakerecogna2,llm [20-200 words],4362,0.7745,,,-0.0306,within-band; length control held
+fakerecogna2,llm [30-150 words],3919,0.7461,,,-0.0805,within-band; length control held
+fakerecogna2,llm [40-120 words],2851,0.7394,,,-0.0935,within-band; length control held
+fakerecogna2,llm [45-90 words],1140,0.7556,,,0.037,within-band; length control held
+fakerecogna2,tfidf [all words],5000,0.8023,,,-0.0054,within-band; length control held
+fakerecogna2,tfidf [20-200 words],4362,0.7934,,,-0.0117,within-band; length control held
+fakerecogna2,tfidf [30-150 words],3919,0.7874,,,-0.0391,within-band; length control held
+fakerecogna2,tfidf [40-120 words],2851,0.7834,,,-0.0495,within-band; length control held
+fakerecogna2,tfidf [45-90 words],1140,0.7997,,,0.0811,within-band; length control held
+fakerecogna2,length [all words],52800,0.809,,,,tail-effect check
+fakerecogna2,length [20-200 words],45817,0.8115,,,,tail-effect check
+fakerecogna2,length [30-150 words],41248,0.8295,,,,tail-effect check
+fakerecogna2,length [40-120 words],30114,0.8406,,,,tail-effect check
+fakerecogna2,length [45-90 words],12361,0.7205,,,,tail-effect check
+fakerecogna2,length distribution [real],26400,,97.0,123.0,,median=112 iqr=26
+fakerecogna2,length distribution [fake],26400,,23.0,86.0,,median=50 iqr=63
+fakerecogna2_abs,length,52800,0.7514,0.7457,0.7548,,"len(text.split()), shorter=fake"
+fakerecogna2_abs,tfidf,5000,0.795,,,above,
+fakerecogna2_abs,bertugues,5000,0.7742,,,above,
+fakerecogna2_abs,llm,5000,0.7391,,,BELOW,
+fakerecogna2_abs,bertimbau,5000,0.525,,,BELOW,
+fakerecogna2_abs,tfidf (rho vs words),,-0.2568,,,,"spearman(prob, words)"
+fakerecogna2_abs,llm (rho vs words),,-0.2276,,,,"spearman(prob, words)"
+fakerecogna2_abs,bertugues (rho vs words),,-0.2036,,,,"spearman(prob, words)"
+fakerecogna2_abs,bertimbau (rho vs words),,0.0812,,,,"spearman(prob, words)"
+fakerecogna2_abs,bertimbau [all words],5000,0.525,,,-0.2318,within-band; length control held
+fakerecogna2_abs,bertimbau [20-200 words],4310,0.5774,,,-0.162,within-band; length control held
+fakerecogna2_abs,bertimbau [30-150 words],3772,0.5858,,,-0.1409,within-band; length control held
+fakerecogna2_abs,bertimbau [40-120 words],3031,0.5896,,,-0.1451,within-band; length control held
+fakerecogna2_abs,bertimbau [45-90 words],1681,0.5731,,,-0.1018,within-band; length control held
+fakerecogna2_abs,bertugues [all words],5000,0.7742,,,0.0175,within-band; length control held
+fakerecogna2_abs,bertugues [20-200 words],4310,0.8028,,,0.0633,within-band; length control held
+fakerecogna2_abs,bertugues [30-150 words],3772,0.8017,,,0.075,within-band; length control held
+fakerecogna2_abs,bertugues [40-120 words],3031,0.7987,,,0.064,within-band; length control held
+fakerecogna2_abs,bertugues [45-90 words],1681,0.7961,,,0.1212,within-band; length control held
+fakerecogna2_abs,llm [all words],5000,0.7391,,,-0.0176,within-band; length control held
+fakerecogna2_abs,llm [20-200 words],4310,0.6909,,,-0.0486,within-band; length control held
+fakerecogna2_abs,llm [30-150 words],3772,0.6704,,,-0.0563,within-band; length control held
+fakerecogna2_abs,llm [40-120 words],3031,0.6552,,,-0.0795,within-band; length control held
+fakerecogna2_abs,llm [45-90 words],1681,0.6502,,,-0.0247,within-band; length control held
+fakerecogna2_abs,tfidf [all words],5000,0.795,,,0.0383,within-band; length control held
+fakerecogna2_abs,tfidf [20-200 words],4310,0.7891,,,0.0496,within-band; length control held
+fakerecogna2_abs,tfidf [30-150 words],3772,0.784,,,0.0573,within-band; length control held
+fakerecogna2_abs,tfidf [40-120 words],3031,0.7832,,,0.0485,within-band; length control held
+fakerecogna2_abs,tfidf [45-90 words],1681,0.7785,,,0.1035,within-band; length control held
+fakerecogna2_abs,length [all words],52800,0.7514,,,,tail-effect check
+fakerecogna2_abs,length [20-200 words],45752,0.7327,,,,tail-effect check
+fakerecogna2_abs,length [30-150 words],40197,0.722,,,,tail-effect check
+fakerecogna2_abs,length [40-120 words],32639,0.7212,,,,tail-effect check
+fakerecogna2_abs,length [45-90 words],18549,0.6811,,,,tail-effect check
+fakerecogna2_abs,length distribution [real],26400,,75.0,115.0,,median=95 iqr=40
+fakerecogna2_abs,length distribution [fake],26400,,23.0,86.0,,median=50 iqr=63

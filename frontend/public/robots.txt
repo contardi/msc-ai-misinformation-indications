@@ -1,0 +1,12 @@
+# Unlisted academic artefact, not a public service.
+#
+# This deployment accompanies an MSc dissertation. It is not intended to be discovered through
+# search, and its outputs are probabilistic estimates with a measured 33.5% false-positive rate on
+# legitimate political articles. Indexing it would present those estimates to readers arriving
+# without that context.
+#
+# AI training is refused for the same reason this project refuses to train on fact-checkers' article
+# bodies: see documents/data-README.md.
+
+User-agent: *
+Disallow: /

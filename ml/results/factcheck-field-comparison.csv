@@ -1,0 +1,4 @@
+field,rows_indexed,positives_found,on_claim_precision,useful_rate,controls_false_association,adopted,note
+claimReviewed,7550,0.145,0.414,0.060,0.010,no,the raw viral message; matches spuriously on common words
+title,7550,0.115,0.739,0.085,0.005,yes,fewest false associations; the publisher's own headline
+excerpt,7550,0.125,0.640,0.080,0.015,no,states the claim affirmatively but triples false association

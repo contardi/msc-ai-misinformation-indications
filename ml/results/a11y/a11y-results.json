@@ -1,0 +1,32 @@
+{
+  "tags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21a",
+    "wcag21aa"
+  ],
+  "total": 0,
+  "nodes": 0,
+  "report": [
+    {
+      "state": "landing (pt-BR)",
+      "passes": 20,
+      "violations": []
+    },
+    {
+      "state": "result (pt-BR)",
+      "passes": 24,
+      "violations": []
+    },
+    {
+      "state": "landing (en-GB)",
+      "passes": 20,
+      "violations": []
+    },
+    {
+      "state": "result (en-GB)",
+      "passes": 24,
+      "violations": []
+    }
+  ]
+}

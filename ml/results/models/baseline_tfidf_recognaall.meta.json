@@ -1,0 +1,28 @@
+{
+  "model": "tfidf+logreg",
+  "label_map": {
+    "0": "likely_legitimate",
+    "1": "likely_misinformation"
+  },
+  "positive_label": 1,
+  "seed": 42,
+  "train_corpus": "fakerecogna2,fakerecogna2_abs,fakerecogna1",
+  "n_rows": 64644,
+  "created": "2026-08-21",
+  "heldout_metrics": {
+    "accuracy": 0.9439245107896975,
+    "precision": 0.9491313194553138,
+    "recall": 0.9381188118811881,
+    "f1": 0.9435929355014393
+  },
+  "attribution": "shap (linear, closed-form): coef * (x - mean)",
+  "versions": {
+    "python": "3.13.14",
+    "scikit-learn": "1.9.0",
+    "numpy": "2.5.0",
+    "scipy": "1.18.0",
+    "pandas": "3.0.4",
+    "joblib": "1.5.3"
+  },
+  "artefact": "baseline_tfidf_recognaall.joblib"
+}
